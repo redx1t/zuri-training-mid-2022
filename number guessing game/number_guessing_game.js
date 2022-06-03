@@ -5,28 +5,29 @@
 //  by increasing the range limit value by 1, e.g range is from 1 and 3 for stage 2 and so on.
 // Connect replit account to github and save your program in github.
 
-let correct_answer = (min, max) => {
+var correct_answer = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 function guessing_game() {
-  let min = 1;
-  let max = 2;
-  let status = true;
-  let points = 0;
-  let username = prompt("Please enter your username", "");
+  var min = 1;
+  var max = 2;
+  var status = true;
+  var points = 0;
+  var username = prompt("Please enter your username", "");
   if (username == null || username == "") {
     return "please enter your username to play";
   }
-  let setCookie = (username, points) => {
+  var setCookie = (username, points) => {
     document.cookie = `username=${encodeURIComponent(username)};`;
-    document.cookie = `points=${encodeURIComponent(points)}`;
+    document.cookie = `points=${encodeURIComponent(points)};`;
   };
   while (status) {
-    let choice = prompt(`Select a number between ${min} and ${max}`);
+    var choice = prompt(`Select a number between ${min} and ${max}`);
     if (choice == correct_answer(min, max)) {
       max++;
       points++;
+      console.log(points + " - " + username);
       console.log(document.cookie);
       window.alert("you win!!!");
     } else {
