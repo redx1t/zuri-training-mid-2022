@@ -6,7 +6,7 @@
 // Connect replit account to github and save your program in github.
 
 let correct_answer = (min, max) => {
-  Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 function guessing_game() {
@@ -18,14 +18,15 @@ function guessing_game() {
   if (username == null || username == "") {
     return "please enter your username to play";
   }
-  document.cookie = "username=${username}; points=${points}";
-
+  let setCookie = (username, points) => {
+    document.cookie = `username=${encodeURIComponent(username)};`;
+    document.cookie = `points=${encodeURIComponent(points)}`;
+  };
   while (status) {
-    let choice = prompt("Select a number between ${min} and ${max}");
+    let choice = prompt(`Select a number between ${min} and ${max}`);
     if (choice == correct_answer(min, max)) {
       max++;
       points++;
-      document.cookie = "username=${username}; points=${points}";
       console.log(document.cookie);
       window.alert("you win!!!");
     } else {
@@ -33,7 +34,8 @@ function guessing_game() {
       window.alert("you lose!!!");
     }
   }
-  return "Game Over";
+  setCookie(username, points);
+  return document.cookie;
 }
 
 guessing_game();
